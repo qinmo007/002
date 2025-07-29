@@ -1,0 +1,49 @@
+<!-- 食物组件 -->
+<view class="food-item {{selected ? 'selected' : ''}} {{disabled ? 'disabled' : ''}}"
+      bindtap="onTap"
+      catch:touchstart="onTouchStart"
+      catch:touchmove="onTouchMove"
+      catch:touchend="onTouchEnd"
+      style="{{dragging ? 'position: absolute; left: ' + position.x + 'px; top: ' + position.y + 'px; z-index: 100;' : ''}}">
+
+  <!-- 食物图标 -->
+  <view class="food-icon-container">
+    <image class="food-icon" src="{{foodIcon}}" mode="aspectFit"></image>
+
+    <!-- 食物状态指示器 -->
+    <view class="food-status {{foodStatus}}" wx:if="{{foodStatus !== 'normal'}}"></view>
+
+    <!-- 制作进度条 -->
+    <view class="progress-bar" wx:if="{{showProgress && !completed}}">
+      <view class="progress" style="width: {{progress}}%"></view>
+    </view>
+  </view>
+
+  <!-- 食物名称 -->
+  <text class="food-name">{{foodName}}</text>
+
+  <!-- 食物价格 -->
+  <view class="food-price" wx:if="{{showPrice}}">
+    <image class="coin-icon" src="/assets/icons/coin.png"></image>
+    <text>{{price}}</text>
+  </view>
+
+  <!-- 食物数量 -->
+  <view class="food-count" wx:if="{{count > 1}}">
+    <text>x{{count}}</text>
+  </view>
+
+  <!-- 解锁状态 -->
+  <view class="lock-overlay" wx:if="{{locked}}">
+    <image class="lock-icon" src="/assets/icons/lock.png"></image>
+    <view class="unlock-info" wx:if="{{showUnlockInfo}}">
+      <text class="unlock-level">Lv.{{unlockLevel}}</text>
+    </view>
+  </view>
+
+  <!-- 新品标签 -->
+  <view class="new-tag" wx:if="{{isNew}}">新品</view>
+
+  <!-- 热门标签 -->
+  <view class="hot-tag" wx:if="{{isHot}}">热门</view>
+</view>

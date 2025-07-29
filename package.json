@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@cloudbase/cloudbase-mcp": "^1.8.22"
+  }
+}

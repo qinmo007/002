@@ -1,0 +1,776 @@
+/**
+ * 早餐店模拟器 - 游戏页面样式
+ */
+
+/* 加载屏幕 */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff8e1;
+  z-index: 1000;
+}
+
+.loading-icon {
+  width: 120rpx;
+  height: 120rpx;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  color: #ff9800;
+}
+
+/* 游戏容器 */
+.game-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff8e1;
+  overflow: hidden;
+}
+
+/* 顶部信息栏 */
+.top-bar {
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx;
+  background-color: #ffcc00;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* 日期和时间 */
+.day-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.day-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.time-bar {
+  width: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-progress {
+  width: 100%;
+}
+
+.time-text {
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 4rpx;
+}
+
+/* 统计信息 */
+.stats-info {
+  display: flex;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 6rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.stat-icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 8rpx;
+}
+
+.stat-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 暂停按钮 */
+.pause-button {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.pause-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 游戏区域 */
+.game-area {
+  flex: 1;
+  display: flex;
+  padding: 20rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 区域标题 */
+.area-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff6d00;
+  margin-bottom: 10rpx;
+  text-align: center;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 左侧：顾客区域 */
+.customer-area {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.customer-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.customer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.customer-item.served {
+  opacity: 0.7;
+  transform: translateX(-100%);
+}
+
+.customer-item.left {
+  opacity: 0.7;
+  transform: translateX(-100%);
+}
+
+.customer-image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+}
+
+.customer-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.customer-name {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 6rpx;
+  text-align: center;
+}
+
+.patience-bar {
+  width: 100%;
+  margin-bottom: 10rpx;
+}
+
+.patience-progress {
+  width: 100%;
+}
+
+.customer-order {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.order-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.order-item-image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 4rpx;
+  background-color: #f5f5f5;
+  border-radius: 6rpx;
+}
+
+.empty-customer-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150rpx;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10rpx;
+  border: 2rpx dashed #ccc;
+}
+
+.empty-customer-slot text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 中间：烹饪区域 */
+.cooking-area {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.cooking-status {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+}
+
+.cooking-food-image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 10rpx;
+}
+
+.cooking-food-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.cooking-progress-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.cooking-progress {
+  width: 100%;
+}
+
+.cooking-progress-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 6rpx;
+}
+
+.cooking-quality-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.cooking-quality-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.cooking-quality {
+  width: 100%;
+}
+
+.cooking-quality-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 6rpx;
+}
+
+.boost-button {
+  width: 200rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #ffcc00, #ff9800);
+  color: white;
+  font-size: 28rpx;
+  font-weight: bold;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(255, 152, 0, 0.3);
+  border: none;
+}
+
+.boost-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(255, 152, 0, 0.3);
+}
+
+.cooking-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.cooking-placeholder text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.food-list {
+  height: 180rpx;
+  white-space: nowrap;
+}
+
+.food-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150rpx;
+  margin: 0 10rpx;
+  padding: 10rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.food-image {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 6rpx;
+}
+
+.food-name {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+  margin-bottom: 4rpx;
+  white-space: normal;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.food-price {
+  font-size: 22rpx;
+  color: #ff6d00;
+}
+
+/* 右侧：订单区域 */
+.order-area {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.order-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+  padding: 10rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.order-item.served {
+  opacity: 0.7;
+}
+
+.order-item.failed {
+  opacity: 0.7;
+  background-color: #ffebee;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.order-customer {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.order-price {
+  font-size: 28rpx;
+  color: #ff6d00;
+}
+
+.order-content {
+  padding: 10rpx 0;
+}
+
+.order-food-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.order-food-image {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+  border-radius: 6rpx;
+  background-color: #f5f5f5;
+}
+
+.order-food-image.cooked {
+  background-color: #e8f5e9;
+}
+
+.order-food-name {
+  font-size: 24rpx;
+  color: #666;
+  flex: 1;
+}
+
+.order-food-quality {
+  font-size: 24rpx;
+  color: #00cc00;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.order-status {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.serve-button {
+  width: 120rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #4caf50, #388e3c);
+  color: white;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 2rpx 4rpx rgba(76, 175, 80, 0.3);
+  border: none;
+  padding: 0;
+}
+
+.serve-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 1rpx 2rpx rgba(76, 175, 80, 0.3);
+}
+
+.empty-order-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150rpx;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10rpx;
+  border: 2rpx dashed #ccc;
+}
+
+.empty-order-slot text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 底部设备栏 */
+.equipment-bar {
+  width: 100%;
+  height: 120rpx;
+  background-color: #f5f5f5;
+  box-shadow: 0 -2rpx 6rpx rgba(0, 0, 0, 0.1);
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+
+.equipment-list {
+  height: 100%;
+  white-space: nowrap;
+}
+
+.equipment-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120rpx;
+  height: 100%;
+  margin: 0 10rpx;
+  padding: 5rpx;
+  box-sizing: border-box;
+}
+
+.equipment-image {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 4rpx;
+}
+
+.equipment-name {
+  font-size: 20rpx;
+  color: #666;
+  text-align: center;
+  white-space: normal;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 模态框 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-header {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ff6d00;
+}
+
+.modal-content {
+  padding: 20rpx;
+}
+
+/* 暂停菜单 */
+.pause-menu {
+  width: 80%;
+  max-width: 600rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.menu-button {
+  width: 100%;
+  height: 90rpx;
+  margin: 20rpx 0;
+  background: linear-gradient(to bottom, #ffcc00, #ff9800);
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 45rpx;
+  box-shadow: 0 4rpx 8rpx rgba(255, 152, 0, 0.3);
+  border: none;
+}
+
+.menu-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(255, 152, 0, 0.3);
+}
+
+/* 日结算界面 */
+.day-summary {
+  width: 90%;
+  max-width: 700rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.summary-stats {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30rpx;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  margin: 10rpx 0;
+}
+
+.summary-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.summary-label {
+  font-size: 28rpx;
+  color: #666;
+  width: 150rpx;
+}
+
+.summary-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.continue-button {
+  width: 100%;
+  height: 90rpx;
+  margin: 20rpx 0;
+  background: linear-gradient(to bottom, #4caf50, #388e3c);
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 45rpx;
+  box-shadow: 0 4rpx 8rpx rgba(76, 175, 80, 0.3);
+  border: none;
+}
+
+.continue-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(76, 175, 80, 0.3);
+}
+
+.home-button {
+  width: 100%;
+  height: 90rpx;
+  margin: 20rpx 0;
+  background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
+  color: #666;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 45rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.home-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 教程界面 */
+.tutorial-modal {
+  width: 90%;
+  max-width: 700rpx;
+  max-height: 80%;
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-content {
+  flex: 1;
+  padding: 20rpx;
+  max-height: 60vh;
+}
+
+.tutorial-section {
+  margin-bottom: 30rpx;
+}
+
+.tutorial-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff6d00;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.tutorial-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.start-button {
+  width: 80%;
+  height: 90rpx;
+  margin: 20rpx auto;
+  background: linear-gradient(to bottom, #ffcc00, #ff9800);
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 45rpx;
+  box-shadow: 0 4rpx 8rpx rgba(255, 152, 0, 0.3);
+  border: none;
+}
+
+.start-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(255, 152, 0, 0.3);
+}

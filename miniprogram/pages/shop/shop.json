@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "商店",
+  "navigationBarBackgroundColor": "#ff8a00",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "shop-item": "/components/shop-item/shop-item"
+  }
+}

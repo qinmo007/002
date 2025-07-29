@@ -1,0 +1,44 @@
+<!-- 顾客组件 -->
+<view class="customer-container {{isLeaving ? 'leaving' : ''}} {{isEntering ? 'entering' : ''}}" style="left: {{position.x}}rpx; top: {{position.y}}rpx;">
+  <!-- 顾客形象 -->
+  <view class="customer-avatar {{mood}}">
+    <image class="customer-image" src="{{customerImage}}" mode="aspectFit"></image>
+
+    <!-- 情绪表现 -->
+    <view class="mood-indicator" wx:if="{{showMood}}">
+      <image class="mood-icon" src="/assets/icons/mood_{{mood}}.png"></image>
+    </view>
+  </view>
+
+  <!-- 顾客订单气泡 -->
+  <view class="order-bubble {{showOrder ? 'show' : ''}}" bindtap="onOrderTap">
+    <view class="bubble-content">
+      <!-- 订单食物图标 -->
+      <view class="order-items">
+        <block wx:for="{{orderItems}}" wx:key="id">
+          <view class="order-item">
+            <image class="food-icon" src="{{item.icon}}" mode="aspectFit"></image>
+            <text class="food-count" wx:if="{{item.count > 1}}">x{{item.count}}</text>
+          </view>
+        </block>
+      </view>
+
+      <!-- 倒计时 -->
+      <view class="countdown {{timeRemaining < 10 ? 'urgent' : ''}}">
+        <image class="timer-icon" src="/assets/icons/timer.png"></image>
+        <text class="timer-text">{{timeRemaining}}s</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 情绪反馈气泡 -->
+  <view class="feedback-bubble {{showFeedback ? 'show' : ''}}">
+    <text class="feedback-text">{{feedbackText}}</text>
+  </view>
+
+  <!-- 小费气泡 -->
+  <view class="tip-bubble {{showTip ? 'show' : ''}}">
+    <image class="coin-icon" src="/assets/icons/coin.png"></image>
+    <text class="tip-amount">+{{tipAmount}}</text>
+  </view>
+</view>

@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/game/game",
+    "pages/shop/shop",
+    "pages/profile/profile",
+    "pages/settings/settings",
+    "pages/tutorial/tutorial",
+    "pages/ranking/ranking"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ff8a00",
+    "navigationBarTitleText": "早餐店模拟器",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff8a00",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home_selected.png"
+      },
+      {
+        "pagePath": "pages/game/game",
+        "text": "游戏",
+        "iconPath": "assets/icons/game.png",
+        "selectedIconPath": "assets/icons/game_selected.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "商店",
+        "iconPath": "assets/icons/shop.png",
+        "selectedIconPath": "assets/icons/shop_selected.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icons/profile.png",
+        "selectedIconPath": "assets/icons/profile_selected.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": false,
+  "permission": {
+    "scope.userInfo": {
+      "desc": "您的用户信息将用于游戏内的个人资料展示"
+    }
+  },
+  "cloud": true,
+  "lazyCodeLoading": "requiredComponents",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  },
+  "requiredBackgroundModes": ["audio"],
+  "navigateToMiniProgramAppIdList": [],
+  "usingComponents": {
+    "custom-button": "/components/custom-button/custom-button",
+    "loading-screen": "/components/loading-screen/loading-screen",
+    "dialog-box": "/components/dialog-box/dialog-box",
+    "notification": "/components/notification/notification"
+  }
+}

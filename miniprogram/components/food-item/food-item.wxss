@@ -1,0 +1,189 @@
+/* 食物组件样式 */
+.food-item {
+  position: relative;
+  width: 120rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* 选中状态 */
+.food-item.selected {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 138, 0, 0.3);
+  border: 2rpx solid #ff8a00;
+}
+
+/* 禁用状态 */
+.food-item.disabled {
+  opacity: 0.6;
+  filter: grayscale(50%);
+}
+
+/* 食物图标容器 */
+.food-icon-container {
+  position: relative;
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 食物图标 */
+.food-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* 食物状态指示器 */
+.food-status {
+  position: absolute;
+  top: -5rpx;
+  right: -5rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  border: 2rpx solid white;
+}
+
+.food-status.cooking {
+  background-color: #ff8a00;
+}
+
+.food-status.burnt {
+  background-color: #333;
+}
+
+.food-status.perfect {
+  background-color: #52c41a;
+}
+
+/* 进度条 */
+.progress-bar {
+  position: absolute;
+  bottom: -5rpx;
+  left: 0;
+  width: 100%;
+  height: 4rpx;
+  background-color: #f0f0f0;
+  border-radius: 2rpx;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff8a00;
+  transition: width 0.3s;
+}
+
+/* 食物名称 */
+.food-name {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  padding: 0 5rpx;
+}
+
+/* 食物价格 */
+.food-price {
+  display: flex;
+  align-items: center;
+  margin-top: 5rpx;
+  font-size: 22rpx;
+  color: #ff8a00;
+}
+
+.coin-icon {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 4rpx;
+}
+
+/* 食物数量 */
+.food-count {
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+  background-color: #ff8a00;
+  color: white;
+  font-size: 20rpx;
+  border-radius: 50%;
+  width: 30rpx;
+  height: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 锁定遮罩 */
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-bottom: 5rpx;
+}
+
+.unlock-info {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10rpx;
+  padding: 2rpx 8rpx;
+}
+
+.unlock-level {
+  font-size: 20rpx;
+  color: #333;
+}
+
+/* 新品标签 */
+.new-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #52c41a;
+  color: white;
+  font-size: 20rpx;
+  padding: 2rpx 8rpx;
+  border-bottom-right-radius: 10rpx;
+}
+
+/* 热门标签 */
+.hot-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f5222d;
+  color: white;
+  font-size: 20rpx;
+  padding: 2rpx 8rpx;
+  border-bottom-left-radius: 10rpx;
+}
+
+/* 拖拽效果 */
+.food-item.dragging {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}

@@ -1,0 +1,303 @@
+/* 顾客组件样式 */
+.customer-container {
+  position: absolute;
+  width: 120rpx;
+  height: 180rpx;
+  z-index: 10;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+/* 入场动画 */
+.customer-container.entering {
+  animation: customer-enter 1s ease-out;
+}
+
+@keyframes customer-enter {
+  0% {
+    transform: translateX(-100rpx);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* 离场动画 */
+.customer-container.leaving {
+  animation: customer-leave 1s ease-in;
+}
+
+@keyframes customer-leave {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100rpx);
+    opacity: 0;
+  }
+}
+
+/* 顾客形象 */
+.customer-avatar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.customer-image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 情绪表现 */
+.mood-indicator {
+  position: absolute;
+  top: -20rpx;
+  right: -10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.mood-icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+/* 情绪样式 */
+.happy .customer-image {
+  transform: scale(1.05);
+}
+
+.neutral .customer-image {
+  transform: scale(1);
+}
+
+.angry .customer-image {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5rpx); }
+  75% { transform: translateX(5rpx); }
+}
+
+.impatient .customer-image {
+  animation: tap-foot 1s infinite;
+}
+
+@keyframes tap-foot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5rpx); }
+}
+
+/* 订单气泡 */
+.order-bubble {
+  position: absolute;
+  top: -80rpx;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 10rpx;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  min-width: 120rpx;
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  z-index: 20;
+}
+
+.order-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-top: 10rpx solid white;
+}
+
+.order-bubble.show {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+.bubble-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 订单食物 */
+.order-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 5rpx;
+}
+
+.order-item {
+  position: relative;
+  margin: 2rpx;
+}
+
+.food-icon {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 5rpx;
+}
+
+.food-count {
+  position: absolute;
+  bottom: -5rpx;
+  right: -5rpx;
+  background-color: #ff8a00;
+  color: white;
+  font-size: 16rpx;
+  border-radius: 50%;
+  width: 20rpx;
+  height: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 倒计时 */
+.countdown {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 10rpx;
+  padding: 2rpx 8rpx;
+}
+
+.timer-icon {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 4rpx;
+}
+
+.timer-text {
+  font-size: 18rpx;
+  color: #666;
+}
+
+.countdown.urgent {
+  background-color: #ffebeb;
+}
+
+.countdown.urgent .timer-text {
+  color: #ff4d4f;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* 情绪反馈气泡 */
+.feedback-bubble {
+  position: absolute;
+  top: -60rpx;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background-color: white;
+  border-radius: 15rpx;
+  padding: 8rpx 12rpx;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  z-index: 20;
+}
+
+.feedback-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-top: 10rpx solid white;
+}
+
+.feedback-bubble.show {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10rpx); }
+  60% { transform: translateX(-50%) translateY(-5rpx); }
+}
+
+.feedback-text {
+  font-size: 24rpx;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* 小费气泡 */
+.tip-bubble {
+  position: absolute;
+  top: -40rpx;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background-color: rgba(255, 215, 0, 0.9);
+  border-radius: 15rpx;
+  padding: 5rpx 10rpx;
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+}
+
+.tip-bubble.show {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  animation: float-up 1.5s forwards;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50rpx);
+    opacity: 0;
+  }
+}
+
+.coin-icon {
+  width: 20rpx;
+  height: 20rpx;
+  margin-right: 4rpx;
+}
+
+.tip-amount {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: bold;
+}

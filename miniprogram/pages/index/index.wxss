@@ -1,0 +1,470 @@
+/**
+ * 早餐店模拟器 - 主页面样式
+ */
+
+/* 加载屏幕 */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff8e1;
+  z-index: 1000;
+}
+
+.loading-icon {
+  width: 120rpx;
+  height: 120rpx;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  color: #ff9800;
+}
+
+/* 主容器 */
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 背景图 */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 顶部信息栏 */
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 用户信息 */
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-container {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2rpx solid #ffcc00;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.2);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.user-details {
+  margin-left: 20rpx;
+}
+
+.username {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.level-info {
+  display: flex;
+  align-items: center;
+  margin-top: 6rpx;
+}
+
+.level-text {
+  font-size: 24rpx;
+  color: #ff9800;
+  margin-right: 10rpx;
+}
+
+.level-progress {
+  width: 120rpx;
+}
+
+/* 货币信息 */
+.currency-info {
+  display: flex;
+  align-items: center;
+}
+
+.currency-item {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8rpx 16rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.currency-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 8rpx;
+}
+
+.currency-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 游戏标题 */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40rpx 0;
+}
+
+.game-logo {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+
+.game-title {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #ff6d00;
+  text-shadow: 2rpx 2rpx 4rpx rgba(0, 0, 0, 0.3);
+  margin-bottom: 10rpx;
+}
+
+.game-subtitle {
+  font-size: 32rpx;
+  color: #ff9800;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 主要按钮 */
+.main-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40rpx 0;
+}
+
+.start-button {
+  width: 400rpx;
+  height: 120rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #ffcc00, #ff9800);
+  color: white;
+  font-size: 40rpx;
+  font-weight: bold;
+  border-radius: 60rpx;
+  box-shadow: 0 6rpx 12rpx rgba(255, 152, 0, 0.3);
+  margin-bottom: 40rpx;
+  border: none;
+}
+
+.start-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 3rpx 6rpx rgba(255, 152, 0, 0.3);
+}
+
+.button-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 16rpx;
+}
+
+/* 次要按钮 */
+.secondary-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.secondary-button {
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  margin: 10rpx;
+  padding: 0;
+}
+
+.secondary-button .button-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+  margin-right: 0;
+}
+
+.secondary-button text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.secondary-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 公告栏 */
+.announcement-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  padding: 20rpx;
+  margin: 30rpx 0;
+}
+
+.announcement-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.announcement-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.announcement-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff6d00;
+  flex: 1;
+}
+
+.announcement-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.announcement-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 底部版权信息 */
+.footer {
+  margin-top: 40rpx;
+  padding: 20rpx 0;
+}
+
+.copyright {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 登录按钮 */
+.login-button {
+  position: fixed;
+  bottom: 40rpx;
+  right: 40rpx;
+  display: flex;
+  align-items: center;
+  background-color: #07c160;
+  color: white;
+  font-size: 28rpx;
+  padding: 16rpx 30rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+.login-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+/* 模态框遮罩 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* 每日登录奖励模态框 */
+.login-reward-modal {
+  width: 80%;
+  background-color: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background-color: #ffcc00;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.close-button {
+  font-size: 40rpx;
+  color: white;
+  padding: 0 10rpx;
+}
+
+.modal-content {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reward-image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 20rpx;
+}
+
+.reward-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.reward-text {
+  font-size: 32rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.reward-amount {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.reward-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 10rpx;
+}
+
+.reward-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.reward-bonus {
+  font-size: 28rpx;
+  color: #ff6d00;
+  font-weight: bold;
+}
+
+.login-streak {
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+.streak-text {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+
+.streak-days {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20rpx;
+}
+
+.day-item {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.day-item.active {
+  background-color: #ffcc00;
+  color: white;
+  box-shadow: 0 2rpx 6rpx rgba(255, 204, 0, 0.3);
+}
+
+.claim-button {
+  width: 80%;
+  height: 80rpx;
+  background: linear-gradient(to bottom, #ffcc00, #ff9800);
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 8rpx rgba(255, 152, 0, 0.3);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.claim-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 4rpx rgba(255, 152, 0, 0.3);
+}

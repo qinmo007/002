@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "customer": "/components/customer/customer",
+    "food-item": "/components/food-item/food-item"
+  },
+  "navigationBarTitleText": "美食餐厅",
+  "navigationStyle": "custom",
+  "disableScroll": true
+}

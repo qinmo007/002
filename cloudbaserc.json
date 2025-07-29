@@ -1,0 +1,49 @@
+{
+  "envId": "cloud1-0g2vhxkn24dd31c7",
+  "version": "2.0",
+  "framework": {
+    "name": "微信小程序早餐店",
+    "plugins": {
+      "client": {
+        "use": "@cloudbase/framework-plugin-website",
+        "inputs": {
+          "buildCommand": "npm run build",
+          "outputPath": "dist",
+          "cloudPath": "/web"
+        }
+      },
+      "server": {
+        "use": "@cloudbase/framework-plugin-function",
+        "inputs": {
+          "functionRootPath": "cloudfunctions",
+          "functions": [
+            {
+              "name": "getUserInfo",
+              "timeout": 5,
+              "runtime": "Nodejs10.15",
+              "memorySize": 128
+            },
+            {
+              "name": "getGameData",
+              "timeout": 5,
+              "runtime": "Nodejs10.15",
+              "memorySize": 128
+            },
+            {
+              "name": "updateGameData",
+              "timeout": 5,
+              "runtime": "Nodejs10.15",
+              "memorySize": 128
+            },
+            {
+              "name": "getRanking",
+              "timeout": 5,
+              "runtime": "Nodejs10.15",
+              "memorySize": 128
+            }
+          ]
+        }
+      }
+    }
+  }
+}

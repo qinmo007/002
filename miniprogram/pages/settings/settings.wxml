@@ -1,0 +1,124 @@
+<!-- 早餐店模拟器 - 设置页面 -->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-screen" wx:if="{{isLoading}}">
+    <image class="loading-icon" src="../../images/ui/loading.png" mode="aspectFit"></image>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 主界面 -->
+  <block wx:else>
+    <!-- 顶部信息栏 -->
+    <view class="header">
+      <!-- 返回按钮 -->
+      <view class="back-btn" bindtap="goBack">
+        <image src="../../images/ui/back_icon.png"></image>
+      </view>
+
+      <!-- 标题 -->
+      <view class="title">设置</view>
+
+      <!-- 占位 -->
+      <view style="width: 60rpx;"></view>
+    </view>
+
+    <!-- 设置列表 -->
+    <view class="settings-list">
+      <!-- 声音设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/sound_icon.png"></image>
+          <text>音效</text>
+        </view>
+        <view class="setting-control">
+          <switch checked="{{settings.isSoundEnabled}}" bindchange="toggleSound" color="#ff8a00"></switch>
+        </view>
+      </view>
+
+      <!-- 音乐设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/music_icon.png"></image>
+          <text>背景音乐</text>
+        </view>
+        <view class="setting-control">
+          <switch checked="{{settings.isMusicEnabled}}" bindchange="toggleMusic" color="#ff8a00"></switch>
+        </view>
+      </view>
+
+      <!-- 通知设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/notification_icon.png"></image>
+          <text>通知提醒</text>
+        </view>
+        <view class="setting-control">
+          <switch checked="{{settings.isNotificationEnabled}}" bindchange="toggleNotification" color="#ff8a00"></switch>
+        </view>
+      </view>
+
+      <!-- 振动设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/vibration_icon.png"></image>
+          <text>振动反馈</text>
+        </view>
+        <view class="setting-control">
+          <switch checked="{{settings.isVibrationEnabled}}" bindchange="toggleVibration" color="#ff8a00"></switch>
+        </view>
+      </view>
+
+      <!-- 语言设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/language_icon.png"></image>
+          <text>语言</text>
+        </view>
+        <view class="setting-control">
+          <picker bindchange="changeLanguage" value="{{settings.language}}" range="{{languageOptions}}" range-key="label">
+            <view class="picker-value">
+              {{languageOptions.find(item => item.value === settings.language).label}}
+              <image class="arrow-icon" src="../../images/ui/arrow_right.png"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 主题设置 -->
+      <view class="setting-item">
+        <view class="setting-label">
+          <image class="setting-icon" src="../../images/ui/theme_icon.png"></image>
+          <text>主题</text>
+        </view>
+        <view class="setting-control">
+          <picker bindchange="changeTheme" value="{{settings.theme}}" range="{{themeOptions}}" range-key="label">
+            <view class="picker-value">
+              {{themeOptions.find(item => item.value === settings.theme).label}}
+              <image class="arrow-icon" src="../../images/ui/arrow_right.png"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+
+    <!-- 其他操作 -->
+    <view class="other-actions">
+      <!-- 清除缓存 -->
+      <button class="action-btn" bindtap="clearCache">
+        <image class="action-icon" src="../../images/ui/clear_cache_icon.png"></image>
+        <text>清除缓存</text>
+      </button>
+
+      <!-- 关于游戏 -->
+      <button class="action-btn" bindtap="showAbout">
+        <image class="action-icon" src="../../images/ui/about_icon.png"></image>
+        <text>关于游戏</text>
+      </button>
+    </view>
+
+    <!-- 版本信息 -->
+    <view class="version-info">
+      <text>早餐店模拟器 v1.0.0</text>
+    </view>
+  </block>
+</view>

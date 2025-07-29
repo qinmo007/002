@@ -1,0 +1,220 @@
+<!-- 早餐店模拟器 - 个人资料页面 -->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-screen" wx:if="{{isLoading}}">
+    <image class="loading-icon" src="../../images/ui/loading.png" mode="aspectFit"></image>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 主界面 -->
+  <block wx:else>
+    <!-- 顶部信息栏 -->
+    <view class="header">
+      <!-- 返回按钮 -->
+      <view class="back-btn" bindtap="goBack">
+        <image src="../../images/ui/back_icon.png"></image>
+      </view>
+
+      <!-- 标题 -->
+      <view class="title">个人资料</view>
+
+      <!-- 占位 -->
+      <view style="width: 60rpx;"></view>
+    </view>
+
+    <!-- 用户信息卡片 -->
+    <view class="user-card">
+      <!-- 用户头像 -->
+      <view class="user-avatar-container">
+        <open-data type="userAvatarUrl" wx:if="{{canIUseOpenData && hasUserInfo}}"></open-data>
+        <image class="user-avatar" src="{{userInfo.avatarUrl || '../../images/ui/default_avatar.png'}}" wx:else></image>
+      </view>
+
+      <!-- 用户信息 -->
+      <view class="user-info">
+        <!-- 用户名称 -->
+        <view class="user-name">
+          <open-data type="userNickName" wx:if="{{canIUseOpenData && hasUserInfo}}"></open-data>
+          <text wx:elif="{{hasUserInfo}}">{{userInfo.nickName}}</text>
+          <text wx:else>未登录</text>
+        </view>
+
+        <!-- 游戏数据 -->
+        <view class="user-game-data" wx:if="{{gameData}}">
+          <view class="game-data-item">
+            <image class="data-icon" src="../../images/ui/coin_icon.png"></image>
+            <text>{{gameData.coins || 0}} 金币</text>
+          </view>
+          <view class="game-data-item">
+            <image class="data-icon" src="../../images/ui/level_icon.png"></image>
+            <text>等级 {{gameData.level || 1}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 登录按钮 -->
+      <view class="login-btn-container" wx:if="{{!hasUserInfo}}">
+        <button class="login-btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">微信登录</button>
+        <button class="login-btn" wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo">微信登录</button>
+      </view>
+    </view>
+
+    <!-- 标签栏 -->
+    <view class="tab-bar">
+      <view class="tab-item {{currentTab === 'stats' ? 'active' : ''}}"
+            bindtap="switchTab"
+            data-tab="stats">
+        <text>统计</text>
+      </view>
+      <view class="tab-item {{currentTab === 'achievements' ? 'active' : ''}}"
+            bindtap="switchTab"
+            data-tab="achievements">
+        <text>成就</text>
+      </view>
+      <view class="tab-item {{currentTab === 'history' ? 'active' : ''}}"
+            bindtap="switchTab"
+            data-tab="history">
+        <text>历史</text>
+      </view>
+    </view>
+
+    <!-- 内容区域 -->
+    <scroll-view class="content-area" scroll-y="true">
+      <!-- 统计数据 -->
+      <view class="stats-container" wx:if="{{currentTab === 'stats' && gameData}}">
+        <view class="stats-card">
+          <view class="stats-title">游戏统计</view>
+          <view class="stats-grid">
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.daysPlayed || 0}}</view>
+              <view class="stats-label">游戏天数</view>
+            </view>
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.totalEarnings || 0}}</view>
+              <view class="stats-label">总收入</view>
+            </view>
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.totalCustomers || 0}}</view>
+              <view class="stats-label">总顾客</view>
+            </view>
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.perfectDishes || 0}}</view>
+              <view class="stats-label">完美料理</view>
+            </view>
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.totalOrders || 0}}</view>
+              <view class="stats-label">总订单</view>
+            </view>
+            <view class="stats-item">
+              <view class="stats-value">{{gameData.averageRating ? gameData.averageRating.toFixed(1) : '0.0'}}</view>
+              <view class="stats-label">平均评分</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="stats-card">
+          <view class="stats-title">店铺信息</view>
+          <view class="shop-info">
+            <view class="shop-info-item">
+              <text class="info-label">店铺名称:</text>
+              <text class="info-value">{{gameData.shopName || '我的早餐店'}}</text>
+            </view>
+            <view class="shop-info-item">
+              <text class="info-label">店铺等级:</text>
+              <text class="info-value">{{gameData.shopLevel || 1}}</text>
+            </view>
+            <view class="shop-info-item">
+              <text class="info-label">店铺声望:</text>
+              <text class="info-value">{{gameData.shopReputation || 0}}</text>
+            </view>
+            <view class="shop-info-item">
+              <text class="info-label">拥有设备:</text>
+              <text class="info-value">{{(gameData.ownedItems || []).filter(item => item.includes('equipment')).length}} 件</text>
+            </view>
+            <view class="shop-info-item">
+              <text class="info-label">拥有食物:</text>
+              <text class="info-value">{{(gameData.ownedItems || []).filter(item => !item.includes('equipment') && !item.includes('decoration')).length}} 种</text>
+            </view>
+            <view class="shop-info-item">
+              <text class="info-label">拥有装饰:</text>
+              <text class="info-value">{{(gameData.ownedItems || []).filter(item => item.includes('decoration')).length}} 件</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 成就列表 -->
+      <view class="achievements-container" wx:if="{{currentTab === 'achievements'}}">
+        <view class="achievements-summary">
+          <view class="summary-title">成就进度</view>
+          <view class="summary-progress">
+            <progress
+              percent="{{achievements.filter(a => a.unlocked).length / achievements.length * 100}}"
+              stroke-width="12"
+              activeColor="#ff8a00"
+              backgroundColor="#e0e0e0"
+            />
+            <text>{{achievements.filter(a => a.unlocked).length}}/{{achievements.length}}</text>
+          </view>
+        </view>
+
+        <view class="achievements-grid">
+          <view class="achievement-item {{item.unlocked ? 'unlocked' : ''}}"
+                wx:for="{{achievements}}"
+                wx:key="id"
+                bindtap="viewAchievementDetail"
+                data-id="{{item.id}}">
+            <view class="achievement-icon-container">
+              <image class="achievement-icon" src="{{item.icon}}" mode="aspectFit"></image>
+              <view class="achievement-lock" wx:if="{{!item.unlocked}}">
+                <image src="../../images/ui/lock_icon.png"></image>
+              </view>
+            </view>
+            <view class="achievement-info">
+              <view class="achievement-name">{{item.name}}</view>
+              <view class="achievement-progress">
+                <progress
+                  percent="{{item.progress / item.maxProgress * 100}}"
+                  stroke-width="4"
+                  activeColor="{{item.unlocked ? '#4caf50' : '#ff8a00'}}"
+                  backgroundColor="#e0e0e0"
+                />
+                <text>{{item.progress}}/{{item.maxProgress}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 历史记录 -->
+      <view class="history-container" wx:if="{{currentTab === 'history'}}">
+        <view class="history-title">游戏历史</view>
+
+        <view class="history-list">
+          <view class="history-item" wx:for="{{gameHistory}}" wx:key="date">
+            <view class="history-date">{{item.date}}</view>
+            <view class="history-details">
+              <view class="history-detail-item">
+                <image class="detail-icon" src="../../images/ui/coin_icon.png"></image>
+                <text>{{item.earnings}} 金币</text>
+              </view>
+              <view class="history-detail-item">
+                <image class="detail-icon" src="../../images/ui/customer_icon.png"></image>
+                <text>{{item.customers}} 顾客</text>
+              </view>
+              <view class="history-detail-item">
+                <image class="detail-icon" src="../../images/ui/star_icon.png"></image>
+                <text>{{item.rating}} 评分</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="no-history" wx:if="{{gameHistory.length === 0}}">
+          <image src="../../images/ui/empty_history.png"></image>
+          <text>暂无游戏历史记录</text>
+        </view>
+      </view>
+    </scroll-view>
+  </block>
+</view>

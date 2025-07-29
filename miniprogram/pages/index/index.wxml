@@ -1,0 +1,136 @@
+<!-- 早餐店模拟器 - 主页面 -->
+
+<!-- 加载中 -->
+<view class="loading-screen" wx:if="{{isLoading}}">
+  <image class="loading-icon" src="/images/ui/loading.png" mode="aspectFit"></image>
+  <text class="loading-text">加载中...</text>
+</view>
+
+<!-- 主页面内容 -->
+<view class="container" wx:else>
+  <!-- 背景 -->
+  <image class="background" src="/images/ui/main_background.jpg" mode="aspectFill"></image>
+
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <!-- 用户信息 -->
+    <view class="user-info" bindtap="goToProfile">
+      <view class="avatar-container">
+        <image class="avatar" src="{{hasUserInfo ? userInfo.avatarUrl : '/images/ui/default_avatar.png'}}" mode="aspectFill"></image>
+      </view>
+      <view class="user-details">
+        <text class="username">{{hasUserInfo ? userInfo.nickName : '游客'}}</text>
+        <view class="level-info">
+          <text class="level-text">Lv.{{gameData.level}}</text>
+          <progress class="level-progress" percent="{{gameData.exp / gameData.expToNextLevel * 100}}" stroke-width="4" activeColor="#ffcc00" backgroundColor="#e0e0e0"></progress>
+        </view>
+      </view>
+    </view>
+
+    <!-- 货币信息 -->
+    <view class="currency-info">
+      <view class="currency-item">
+        <image class="currency-icon" src="/images/ui/coin_icon.png" mode="aspectFit"></image>
+        <text class="currency-value">{{gameData.coins}}</text>
+      </view>
+      <view class="currency-item">
+        <image class="currency-icon" src="/images/ui/gem_icon.png" mode="aspectFit"></image>
+        <text class="currency-value">{{gameData.gems}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏标题 -->
+  <view class="title-container">
+    <image class="game-logo" src="/images/ui/game_logo.png" mode="aspectFit"></image>
+    <text class="game-title">早餐店模拟器</text>
+    <text class="game-subtitle">开启你的早餐店经营之旅！</text>
+  </view>
+
+  <!-- 主要按钮 -->
+  <view class="main-buttons">
+    <button class="start-button" bindtap="startGame" animation="{{animationData}}">
+      <image class="button-icon" src="/images/ui/play_icon.png" mode="aspectFit"></image>
+      <text>开始游戏</text>
+    </button>
+
+    <view class="secondary-buttons">
+      <button class="secondary-button" bindtap="goToShop">
+        <image class="button-icon" src="/images/ui/shop_icon.png" mode="aspectFit"></image>
+        <text>商店</text>
+      </button>
+
+      <button class="secondary-button" bindtap="goToRanking">
+        <image class="button-icon" src="/images/ui/ranking_icon.png" mode="aspectFit"></image>
+        <text>排行榜</text>
+      </button>
+
+      <button class="secondary-button" bindtap="goToProfile">
+        <image class="button-icon" src="/images/ui/profile_icon.png" mode="aspectFit"></image>
+        <text>个人资料</text>
+      </button>
+
+      <button class="secondary-button" bindtap="goToSettings">
+        <image class="button-icon" src="/images/ui/settings_icon.png" mode="aspectFit"></image>
+        <text>设置</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 公告栏 -->
+  <view class="announcement-container">
+    <view class="announcement-header">
+      <image class="announcement-icon" src="/images/ui/announcement_icon.png" mode="aspectFit"></image>
+      <text class="announcement-title">{{announcement.title}}</text>
+      <text class="announcement-date">{{announcement.date}}</text>
+    </view>
+    <view class="announcement-content">
+      <text>{{announcement.content}}</text>
+    </view>
+  </view>
+
+  <!-- 底部版权信息 -->
+  <view class="footer">
+    <text class="copyright">© 2023 早餐店模拟器 v1.0.0</text>
+  </view>
+
+  <!-- 登录按钮 -->
+  <button class="login-button" wx:if="{{canIUseGetUserProfile && !hasUserInfo}}" bindtap="getUserProfile">
+    <image class="login-icon" src="/images/ui/login_icon.png" mode="aspectFit"></image>
+    <text>微信登录</text>
+  </button>
+
+  <!-- 每日登录奖励弹窗 -->
+  <view class="modal-mask" wx:if="{{showLoginReward}}">
+    <view class="login-reward-modal">
+      <view class="modal-header">
+        <text class="modal-title">每日登录奖励</text>
+        <view class="close-button" bindtap="closeLoginReward">×</view>
+      </view>
+
+      <view class="modal-content">
+        <image class="reward-image" src="/images/ui/reward_chest.png" mode="aspectFit"></image>
+
+        <view class="reward-info">
+          <text class="reward-text">恭喜你获得</text>
+          <view class="reward-amount">
+            <image class="reward-icon" src="/images/ui/coin_icon.png" mode="aspectFit"></image>
+            <text class="reward-value">{{loginReward.coins}}</text>
+          </view>
+          <text class="reward-bonus" wx:if="{{loginReward.isBonus}}">连续登录{{loginReward.consecutiveDays}}天奖励！</text>
+        </view>
+
+        <view class="login-streak">
+          <text class="streak-text">连续登录: {{loginReward.consecutiveDays}}天</text>
+          <view class="streak-days">
+            <view class="day-item {{index < loginReward.consecutiveDays ? 'active' : ''}}" wx:for="{{7}}" wx:key="index">
+              <text>{{index + 1}}</text>
+            </view>
+          </view>
+        </view>
+
+        <button class="claim-button" bindtap="claimLoginReward">领取奖励</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>早餐店模拟器</title>
+  <meta name="description" content="经营你自己的早餐店，制作美味早餐，满足顾客需求，赚取利润并扩大你的生意！">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <!-- 预加载字体 -->
+  <link rel="preload" href="assets/fonts/game-font.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+  <!-- 加载屏幕 -->
+  <div id="loading-screen">
+    <div class="loading-container">
+      <img src="assets/images/logo.png" alt="早餐店模拟器" class="loading-logo">
+      <div class="loading-bar-container">
+        <div id="loading-bar" class="loading-bar"></div>
+      </div>
+      <div id="loading-text">加载中...</div>
+    </div>
+  </div>
+
+  <!-- 游戏容器 -->
+  <div id="game-container"></div>
+
+  <!-- 游戏UI覆盖层 -->
+  <div id="ui-overlay" class="hidden">
+    <!-- 主菜单 -->
+    <div id="main-menu" class="menu hidden">
+      <div class="menu-container">
+        <h1>早餐店模拟器</h1>
+        <button id="start-game" class="menu-button">开始游戏</button>
+        <button id="continue-game" class="menu-button">继续游戏</button>
+        <button id="options" class="menu-button">选项</button>
+        <button id="credits" class="menu-button">制作人员</button>
+      </div>
+    </div>
+
+    <!-- 选项菜单 -->
+    <div id="options-menu" class="menu hidden">
+      <div class="menu-container">
+        <h2>选项</h2>
+
+        <div class="option-group">
+          <label for="music-volume">音乐音量</label>
+          <input type="range" id="music-volume" min="0" max="100" value="50">
+          <span id="music-volume-value">50%</span>
+        </div>
+
+        <div class="option-group">
+          <label for="sound-volume">音效音量</label>
+          <input type="range" id="sound-volume" min="0" max="100" value="80">
+          <span id="sound-volume-value">80%</span>
+        </div>
+
+        <div class="option-group">
+          <label for="music-enabled">音乐</label>
+          <input type="checkbox" id="music-enabled" checked>
+        </div>
+
+        <div class="option-group">
+          <label for="sound-enabled">音效</label>
+          <input type="checkbox" id="sound-enabled" checked>
+        </div>
+
+        <div class="option-group">
+          <label for="fullscreen">全屏模式</label>
+          <input type="checkbox" id="fullscreen">
+        </div>
+
+        <button id="save-options" class="menu-button">保存</button>
+        <button id="back-from-options" class="menu-button">返回</button>
+      </div>
+    </div>
+
+    <!-- 制作人员菜单 -->
+    <div id="credits-menu" class="menu hidden">
+      <div class="menu-container">
+        <h2>制作人员</h2>
+
+        <div class="credits-content">
+          <h3>游戏设计</h3>
+          <p>早餐店模拟器团队</p>
+
+          <h3>程序开发</h3>
+          <p>早餐店模拟器团队</p>
+
+          <h3>美术设计</h3>
+          <p>早餐店模拟器团队</p>
+
+          <h3>音乐与音效</h3>
+          <p>早餐店模拟器团队</p>
+
+          <h3>特别感谢</h3>
+          <p>所有支持本游戏的玩家</p>
+        </div>
+
+        <button id="back-from-credits" class="menu-button">返回</button>
+      </div>
+    </div>
+
+    <!-- 暂停菜单 -->
+    <div id="pause-menu" class="menu hidden">
+      <div class="menu-container">
+        <h2>游戏暂停</h2>
+
+        <button id="resume-game" class="menu-button">继续游戏</button>
+        <button id="save-game" class="menu-button">保存游戏</button>
+        <button id="options-from-pause" class="menu-button">选项</button>
+        <button id="quit-game" class="menu-button">退出游戏</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 游戏脚本 -->
+  <script type="module" src="js/main.js"></script>
+
+  <!-- 加载脚本 -->
+  <script>
+    // 模拟加载进度
+    document.addEventListener('DOMContentLoaded', () => {
+      const loadingBar = document.getElementById('loading-bar')
+      const loadingText = document.getElementById('loading-text')
+      const loadingScreen = document.getElementById('loading-screen')
+      const mainMenu = document.getElementById('main-menu')
+      const uiOverlay = document.getElementById('ui-overlay')
+
+      let progress = 0
+      const loadingInterval = setInterval(() => {
+        progress += Math.random() * 10
+        if (progress >= 100) {
+          progress = 100
+          clearInterval(loadingInterval)
+
+          // 加载完成
+          loadingText.textContent = '加载完成'
+
+          // 显示主菜单
+          setTimeout(() => {
+            loadingScreen.style.opacity = '0'
+            setTimeout(() => {
+              loadingScreen.style.display = 'none'
+              uiOverlay.classList.remove('hidden')
+              mainMenu.classList.remove('hidden')
+            }, 500)
+          }, 500)
+        }
+
+        loadingBar.style.width = `${progress}%`
+        loadingText.textContent = `加载中... ${Math.floor(progress)}%`
+      }, 200)
+
+      // 菜单按钮事件
+      document.getElementById('start-game').addEventListener('click', () => {
+        mainMenu.classList.add('hidden')
+        uiOverlay.classList.add('hidden')
+        // 这里会启动游戏
+      })
+
+      document.getElementById('options').addEventListener('click', () => {
+        mainMenu.classList.add('hidden')
+        document.getElementById('options-menu').classList.remove('hidden')
+      })
+
+      document.getElementById('credits').addEventListener('click', () => {
+        mainMenu.classList.add('hidden')
+        document.getElementById('credits-menu').classList.remove('hidden')
+      })
+
+      document.getElementById('back-from-options').addEventListener('click', () => {
+        document.getElementById('options-menu').classList.add('hidden')
+        mainMenu.classList.remove('hidden')
+      })
+
+      document.getElementById('back-from-credits').addEventListener('click', () => {
+        document.getElementById('credits-menu').classList.add('hidden')
+        mainMenu.classList.remove('hidden')
+      })
+
+      // 音量滑块事件
+      document.getElementById('music-volume').addEventListener('input', (e) => {
+        document.getElementById('music-volume-value').textContent = `${e.target.value}%`
+      })
+
+      document.getElementById('sound-volume').addEventListener('input', (e) => {
+        document.getElementById('sound-volume-value').textContent = `${e.target.value}%`
+      })
+    })
+  </script>
+</body>
+</html>

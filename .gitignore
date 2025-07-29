@@ -26,6 +26,10 @@ htmlcov/
 .tox/
 .nox/
 .hypothesis/
+venv/
+env/
+ENV/
+.venv/
 
 # Node.js相关
 node_modules/
@@ -59,11 +63,20 @@ miniprogram/node_modules/
 project.private.config.json
 private.*
 .miniprogram/
+miniprogram/miniprogram_npm/
+miniprogram_dist/
+miniprogram/wxs/
+miniprogram/wxss/
+miniprogram/images/
+miniprogram/pages/*/wxs/
+miniprogram/pages/*/wxss/
 
 # 云函数相关
 cloudfunctions/**/node_modules/
 cloudfunctions/**/.env
 cloudfunctions/**/config.json
+cloudfunctions/**/.DS_Store
+cloudfunctions/**/package-lock.json
 
 # 临时文件
 temp/
@@ -87,6 +100,27 @@ npm-debug.log*
 # 构建输出
 /dist/
 /build/
+
+# AI工具和编辑器配置
+.augment-guidelines/
+.clinerules/
+.codex/
+.comate/
+.cursor/
+.gemini/
+.lingma/
+.roo/
+.trae/
+.windsurf/
+.rules/
+
+# 云开发相关
+.cloudbase/
+cloudbaserc.json
+
+# 其他配置文件
+.mcp.json
+-p
 
 # 其他
 .cache/

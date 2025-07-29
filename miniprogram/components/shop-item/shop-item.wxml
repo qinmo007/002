@@ -1,0 +1,16 @@
+<!-- 商店商品组件 -->
+<view class="shop-item">
+  <image class="item-image" src="{{item.image}}"></image>
+
+  <view class="item-info">
+    <text class="item-name">{{item.name}}</text>
+    <text class="item-description" wx:if="{{item.description}}">{{item.description}}</text>
+
+    <view class="item-price">
+      <image class="price-icon" src="/assets/icons/coin.png"></image>
+      <text class="price-amount">{{item.price}}</text>
+    </view>
+  </view>
+
+  <button class="buy-button" bindtap="handleBuy">购买</button>
+</view>

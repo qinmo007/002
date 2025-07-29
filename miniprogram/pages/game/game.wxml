@@ -1,0 +1,285 @@
+<!-- 早餐店模拟器 - 游戏页面 -->
+
+<!-- 加载中 -->
+<view class="loading-screen" wx:if="{{isLoading}}">
+  <image class="loading-icon" src="/images/ui/loading.png" mode="aspectFit"></image>
+  <text class="loading-text">加载中...</text>
+</view>
+
+<!-- 游戏主界面 -->
+<view class="game-container" wx:else>
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <!-- 日期和时间 -->
+    <view class="day-info">
+      <text class="day-text">第{{currentDay}}天</text>
+      <view class="time-bar">
+        <progress class="time-progress" percent="{{dayTime / dayDuration * 100}}" stroke-width="4" activeColor="#ff9800" backgroundColor="#e0e0e0"></progress>
+        <text class="time-text">{{util.formatTime(dayTime)}}/{{util.formatTime(dayDuration)}}</text>
+      </view>
+    </view>
+    
+    <!-- 统计信息 -->
+    <view class="stats-info">
+      <view class="stat-item">
+        <image class="stat-icon" src="/images/ui/coin_icon.png" mode="aspectFit"></image>
+        <text class="stat-value">{{dailyStats.earnings}}</text>
+      </view>
+      <view class="stat-item">
+        <image class="stat-icon" src="/images/ui/customer_icon.png" mode="aspectFit"></image>
+        <text class="stat-value">{{dailyStats.customers}}</text>
+      </view>
+      <view class="stat-item">
+        <image class="stat-icon" src="/images/ui/order_icon.png" mode="aspectFit"></image>
+        <text class="stat-value">{{dailyStats.orders}}</text>
+      </view>
+    </view>
+    
+    <!-- 暂停按钮 -->
+    <view class="pause-button" bindtap="pauseGame">
+      <image class="pause-icon" src="/images/ui/pause_icon.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  
+  <!-- 游戏区域 -->
+  <view class="game-area">
+    <!-- 左侧：顾客区域 -->
+    <view class="customer-area">
+      <text class="area-title">顾客区</text>
+      
+      <!-- 顾客列表 -->
+      <view class="customer-list">
+        <view class="customer-item {{customer.state}}" wx:for="{{customers}}" wx:for-item="customer" wx:key="id">
+          <image class="customer-image" src="{{customer.image}}" mode="aspectFit"></image>
+          <view class="customer-info">
+            <text class="customer-name">{{customer.name}}</text>
+            <view class="patience-bar">
+              <progress class="patience-progress" percent="{{(customer.patience - customer.waitTime) / customer.patience * 100}}" stroke-width="4" activeColor="{{(customer.patience - customer.waitTime) / customer.patience < 0.3 ? '#ff0000' : '#00cc00'}}" backgroundColor="#e0e0e0"></progress>
+            </view>
+          </view>
+          <view class="customer-order">
+            <view class="order-items">
+              <image class="order-item-image" wx:for="{{customer.order}}" wx:key="id" src="{{item.image}}" mode="aspectFit"></image>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 空位提示 -->
+        <view class="empty-customer-slot" wx:if="{{customers.length < maxCustomers}}">
+          <text>等待顾客中...</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 中间：烹饪区域 -->
+    <view class="cooking-area">
+      <text class="area-title">烹饪区</text>
+      
+      <!-- 烹饪状态 -->
+      <view class="cooking-status {{cookingFood ? 'active' : ''}}">
+        <block wx:if="{{cookingFood}}">
+          <image class="cooking-food-image" src="{{cookingFood.image}}" mode="aspectFit"></image>
+          <text class="cooking-food-name">{{cookingFood.name}}</text>
+          
+          <view class="cooking-progress-container">
+            <progress class="cooking-progress" percent="{{cookingProgress}}" stroke-width="6" activeColor="#ff9800" backgroundColor="#e0e0e0"></progress>
+            <text class="cooking-progress-text">{{cookingProgress.toFixed(0)}}%</text>
+          </view>
+          
+          <view class="cooking-quality-container">
+            <text class="cooking-quality-label">质量:</text>
+            <progress class="cooking-quality" percent="{{cookingQuality}}" stroke-width="6" activeColor="{{cookingQuality < 60 ? '#ff0000' : cookingQuality < 80 ? '#ffcc00' : '#00cc00'}}" backgroundColor="#e0e0e0"></progress>
+            <text class="cooking-quality-text">{{cookingQuality}}%</text>
+          </view>
+          
+          <button class="boost-button" bindtap="boostCookingQuality">提升质量</button>
+        </block>
+        
+        <view class="cooking-placeholder" wx:else>
+          <text>选择食物开始烹饪</text>
+        </view>
+      </view>
+      
+      <!-- 可用食物列表 -->
+      <scroll-view class="food-list" scroll-x="true">
+        <view class="food-item" wx:for="{{availableFood}}" wx:key="id" bindtap="startCooking" data-id="{{item.id}}">
+          <image class="food-image" src="{{item.image}}" mode="aspectFit"></image>
+          <text class="food-name">{{item.name}}</text>
+          <text class="food-price">{{item.price}}金币</text>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 右侧：订单区域 -->
+    <view class="order-area">
+      <text class="area-title">订单区</text>
+      
+      <!-- 当前订单列表 -->
+      <view class="order-list">
+        <view class="order-item {{order.state}}" wx:for="{{currentOrders}}" wx:for-item="order" wx:key="id">
+          <view class="order-header">
+            <text class="order-customer">{{order.customerName}}</text>
+            <text class="order-price">{{order.price}}金币</text>
+          </view>
+          
+          <view class="order-content">
+            <view class="order-food-item" wx:for="{{order.items}}" wx:key="id">
+              <image class="order-food-image {{item.cooked ? 'cooked' : ''}}" src="{{item.image}}" mode="aspectFit"></image>
+              <text class="order-food-name">{{item.name}}</text>
+              <text class="order-food-quality" wx:if="{{item.cooked}}">{{item.quality}}%</text>
+            </view>
+          </view>
+          
+          <view class="order-footer">
+            <text class="order-status">{{order.state === 'pending' ? '等待中' : order.state === 'cooking' ? '烹饪中' : order.state === 'ready' ? '可上菜' : order.state === 'served' ? '已完成' : '已失败'}}</text>
+            <button class="serve-button" wx:if="{{order.state === 'ready'}}" bindtap="serveOrder" data-id="{{order.id}}">上菜</button>
+          </view>
+        </view>
+        
+        <!-- 空订单提示 -->
+        <view class="empty-order-slot" wx:if="{{currentOrders.length === 0}}">
+          <text>暂无订单</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 底部设备栏 -->
+  <view class="equipment-bar">
+    <scroll-view class="equipment-list" scroll-x="true">
+      <view class="equipment-item" wx:for="{{ownedEquipment}}" wx:key="id">
+        <image class="equipment-image" src="{{item.image}}" mode="aspectFit"></image>
+        <text class="equipment-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 暂停菜单 -->
+  <view class="modal-mask" wx:if="{{showPauseMenu}}">
+    <view class="pause-menu">
+      <view class="modal-header">
+        <text class="modal-title">游戏暂停</text>
+      </view>
+      
+      <view class="modal-content">
+        <button class="menu-button" bindtap="resumeGame">继续游戏</button>
+        <button class="menu-button" bindtap="goToHome">返回主页</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 日结算界面 -->
+  <view class="modal-mask" wx:if="{{showDayEndSummary}}">
+    <view class="day-summary">
+      <view class="modal-header">
+        <text class="modal-title">第{{currentDay}}天结束</text>
+      </view>
+      
+      <view class="modal-content">
+        <view class="summary-stats">
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/coin_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">收入:</text>
+            <text class="summary-value">{{dailyStats.earnings}}金币</text>
+          </view>
+          
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/customer_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">顾客:</text>
+            <text class="summary-value">{{dailyStats.customers}}人</text>
+          </view>
+          
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/order_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">订单:</text>
+            <text class="summary-value">{{dailyStats.orders}}单</text>
+          </view>
+          
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/perfect_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">完美料理:</text>
+            <text class="summary-value">{{dailyStats.perfectDishes}}道</text>
+          </view>
+          
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/rating_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">平均评分:</text>
+            <text class="summary-value">{{dailyStats.averageRating.toFixed(1)}}分</text>
+          </view>
+          
+          <view class="summary-item" wx:if="{{dailyStats.failedOrders > 0}}">
+            <image class="summary-icon" src="/images/ui/failed_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">失败订单:</text>
+            <text class="summary-value">{{dailyStats.failedOrders}}单</text>
+          </view>
+          
+          <view class="summary-item">
+            <image class="summary-icon" src="/images/ui/success_icon.png" mode="aspectFit"></image>
+            <text class="summary-label">成功率:</text>
+            <text class="summary-value">{{dailyStats.successRate.toFixed(1)}}%</text>
+          </view>
+        </view>
+        
+        <button class="continue-button" bindtap="startNewDay">继续下一天</button>
+        <button class="home-button" bindtap="goToHome">返回主页</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 教程界面 -->
+  <view class="modal-mask" wx:if="{{showTutorial}}">
+    <view class="tutorial-modal">
+      <view class="modal-header">
+        <text class="modal-title">游戏教程</text>
+      </view>
+      
+      <view class="modal-content">
+        <scroll-view class="tutorial-content" scroll-y="true">
+          <view class="tutorial-section">
+            <text class="tutorial-title">欢迎来到早餐店模拟器！</text>
+            <text class="tutorial-text">在这个游戏中，你将经营一家早餐店，为顾客提供美味的早餐。</text>
+          </view>
+          
+          <view class="tutorial-section">
+            <text class="tutorial-title">游戏目标</text>
+            <text class="tutorial-text">1. 为顾客烹饪并提供他们点的食物</text>
+            <text class="tutorial-text">2. 尽可能快地完成订单，保持顾客满意</text>
+            <text class="tutorial-text">3. 提高食物质量，获得更多小费和更高评分</text>
+            <text class="tutorial-text">4. 赚取金币，升级你的餐厅设备和菜单</text>
+          </view>
+          
+          <view class="tutorial-section">
+            <text class="tutorial-title">游戏操作</text>
+            <text class="tutorial-text">1. 点击食物图标开始烹饪</text>
+            <text class="tutorial-text">2. 烹饪过程中点击"提升质量"按钮提高食物质量</text>
+            <text class="tutorial-text">3. 食物烹饪完成后，点击"上菜"按钮将食物送给顾客</text>
+            <text class="tutorial-text">4. 注意顾客的耐心条，不要让顾客等待太久</text>
+          </view>
+          
+          <view class="tutorial-section">
+            <text class="tutorial-title">提示</text>
+            <text class="tutorial-text">- 食物质量越高，顾客满意度越高，获得小费的几率也越大</text>
+            <text class="tutorial-text">- 不同顾客有不同的耐心值和小费习惯</text>
+            <text class="tutorial-text">- 每天结束后，你可以查看当天的统计数据</text>
+            <text class="tutorial-text">- 在商店中购买新设备和解锁新食谱，提升你的餐厅</text>
+          </view>
+        </scroll-view>
+        
+        <button class="start-button" bindtap="completeTutorial">开始游戏</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- wxs 模块用于格式化时间 -->
+<wxs module="util">
+  function formatTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var remainingSeconds = seconds % 60;
+    return minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
+  }
+  
+  module.exports = {
+    formatTime: formatTime
+  };
+</wxs>
