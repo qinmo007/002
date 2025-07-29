@@ -104,18 +104,3 @@
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 开启一个 Pull Request
 
-## 许可证
-
-本项目采用 MIT 许可证 - 详情请参阅 [LICENSE](LICENSE) 文件
-
-## 联系方式
-
-如有任何问题或建议，请通过以下方式联系我们：
-
-- 项目主页：[GitHub仓库地址]
-- 电子邮件：[your-email@example.com]
-- 微信公众号：[公众号名称]
-
----
-
-祝你经营愉快！🍳🥐☕
